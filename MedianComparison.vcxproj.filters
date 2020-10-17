@@ -18,27 +18,27 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quicksort.cpp">
+    <ClCompile Include="Algorithms\MedianOfMedians.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RandomizedSelect.cpp">
+    <ClCompile Include="Algorithms\Quicksort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MedianOfMedians.cpp">
+    <ClCompile Include="Algorithms\RandomizedSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LFGenerator.h">
+    <ClInclude Include="Algorithms\LFGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Quicksort.h">
+    <ClInclude Include="Algorithms\MedianOfMedians.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RandomizedSelect.h">
+    <ClInclude Include="Algorithms\Quicksort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MedianOfMedians.h">
+    <ClInclude Include="Algorithms\RandomizedSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

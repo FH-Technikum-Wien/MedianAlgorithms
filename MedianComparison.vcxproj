@@ -139,16 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithms\MedianOfMedians.cpp" />
+    <ClCompile Include="Algorithms\Quicksort.cpp" />
+    <ClCompile Include="Algorithms\RandomizedSelect.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MedianOfMedians.cpp" />
-    <ClCompile Include="Quicksort.cpp" />
-    <ClCompile Include="RandomizedSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LFGenerator.h" />
-    <ClInclude Include="MedianOfMedians.h" />
-    <ClInclude Include="Quicksort.h" />
-    <ClInclude Include="RandomizedSelect.h" />
+    <ClInclude Include="Algorithms\LFGenerator.h" />
+    <ClInclude Include="Algorithms\MedianOfMedians.h" />
+    <ClInclude Include="Algorithms\Quicksort.h" />
+    <ClInclude Include="Algorithms\RandomizedSelect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
