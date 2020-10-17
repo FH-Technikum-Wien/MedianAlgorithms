@@ -17,17 +17,19 @@ unsigned int Quicksort::partition(std::vector<int>& values, unsigned int start, 
 	int pivotValue = values[end];
 	unsigned int i = start;
 
-	// Skip pivot.
 	for (unsigned int j = start; j < end; j++)
 	{
 		// Current values smaller/equal to pivot -> Swap.
 		if (values[j] <= pivotValue) {
-			std::swap(values[i], values[j]);
+
+			if(i != j)
+				std::swap(values[i], values[j]);
 			i++;
 		}
 	}
 	// Set pivot to correct spot.
-	std::swap(values[i], values[end]);
+	if(i != end)
+		std::swap(values[i], values[end]);
 	return i;
 }
 

@@ -41,7 +41,7 @@ int MedianOfMedians::sort(std::vector<int>& values, unsigned int size, unsigned 
 			std::swap(values[i], values[pivot++]);
 	}
 
-	// Put pivot inbetween lower and higher.
+	// Put pivot in between lower and higher.
 	std::swap(values[pivot], values[size - 1]);
 
 	// If pivot is wanted number, return.
