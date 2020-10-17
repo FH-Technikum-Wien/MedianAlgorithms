@@ -1,13 +1,13 @@
 #include "RandomizedSelect.h"
 
-int RandomizedSelect::sort(int* values, unsigned int start, unsigned int end, unsigned int nSmallest, unsigned int seed)
+int RandomizedSelect::sort(std::vector<int>& values, unsigned int start, unsigned int end, unsigned int nSmallest, unsigned int seed)
 {
 	// Set seed.
 	std::srand(seed);
 	return randomizedSelect(values, start, end, nSmallest);
 }
 
-int RandomizedSelect::randomizedSelect(int* values, unsigned int start, unsigned int end, unsigned int nSmallest)
+int RandomizedSelect::randomizedSelect(std::vector<int>& values, unsigned int start, unsigned int end, unsigned int nSmallest)
 {
 	// Reached wanted nth-smallest number.
 	if (start == end)
@@ -27,7 +27,7 @@ int RandomizedSelect::randomizedSelect(int* values, unsigned int start, unsigned
 		return sort(values, rPivot + 1, end, nSmallest - elementCount);
 }
 
-int RandomizedSelect::randomizedPartition(int* values, unsigned int start, unsigned int end)
+int RandomizedSelect::randomizedPartition(std::vector<int>& values, unsigned int start, unsigned int end)
 {
 	// Get random pivot. Wrap around (+1 to include 'end').
 	unsigned int pivot = start + std::rand() % (end - start + 1);

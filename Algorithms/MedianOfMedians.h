@@ -10,7 +10,7 @@
 class MedianOfMedians
 {
 public:
-	static int sort(int* values, unsigned int size, unsigned int nthSmallest);
+	static int sort(std::vector<int>& values, unsigned int size, unsigned int nthSmallest);
 
 private:
 

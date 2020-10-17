@@ -10,9 +10,9 @@
 class Quicksort
 {
 public:
-	static void sort(int* values, unsigned int start, unsigned int end);
+	static void sort(std::vector<int>& values, unsigned int start, unsigned int end);
 
 private:
-	static unsigned int partition(int* values, unsigned int start, unsigned int end);
+	static unsigned int partition(std::vector<int>& values, unsigned int start, unsigned int end);
 };
 

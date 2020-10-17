@@ -1,10 +1,10 @@
 #include "MedianOfMedians.h"
 
 
-int MedianOfMedians::sort(int* values, unsigned int size, unsigned int nthSmallest)
+int MedianOfMedians::sort(std::vector<int>& values, unsigned int size, unsigned int nthSmallest)
 {
 	if (size < 6) {
-		std::sort(values, values + size);
+		std::sort(values.begin(), values.end());
 		return values[nthSmallest];
 	}
 
@@ -12,19 +12,19 @@ int MedianOfMedians::sort(int* values, unsigned int size, unsigned int nthSmalle
 	for (unsigned i = 0; i < size / 5; i++)
 	{
 		// Sort in groups of five.
-		std::sort(values + (i * 5), values + (i * 5) + 4);
+		std::sort(values.begin() + (i * 5), values.begin() + (i * 5) + 4);
 		// Median is at index 2 of a sorted group of 5 elements.
 		medians.push_back(values[(i * 5) + 2]);
 	}
 
 	unsigned int remain = size % 5;
 	if (remain != 0) {
-		std::sort(values + (size / 5), values + size);
+		std::sort(values.begin() + (size / 5), values.end());
 		// Add median of remain.
 		medians.push_back(values[(size - remain) / 2]);
 	}
 
-	int pivotValue = sort(&medians[0], medians.size(), medians.size() / 2);
+	int pivotValue = sort(medians, medians.size(), medians.size() / 2);
 
 	// Find pivotValue in array and put it at the end.
 	for (unsigned int i = 0; i < size; i++) {
@@ -53,5 +53,6 @@ int MedianOfMedians::sort(int* values, unsigned int size, unsigned int nthSmalle
 		return sort(values, pivot, nthSmallest);
 	
 	// If pivot is smaller than wanted number, repeat with higher half.
-	return sort(values + pivot + 1, size - pivot - 1, nthSmallest - pivot - 1);
+	std::vector<int> subValues(values.begin() + pivot + 1, values.end());
+	return sort(subValues, size - pivot - 1, nthSmallest - pivot - 1);
 }

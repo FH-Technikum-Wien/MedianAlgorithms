@@ -1,6 +1,6 @@
 #include "Quicksort.h"
 
-void Quicksort::sort(int * values, unsigned int start, unsigned int end)
+void Quicksort::sort(std::vector<int>& values, unsigned int start, unsigned int end)
 {
 	unsigned int pivot;
 	if (start < end) {
@@ -12,7 +12,7 @@ void Quicksort::sort(int * values, unsigned int start, unsigned int end)
 	}
 }
 
-unsigned int Quicksort::partition(int* values, unsigned int start, unsigned int end)
+unsigned int Quicksort::partition(std::vector<int>& values, unsigned int start, unsigned int end)
 {
 	int pivotValue = values[end];
 	unsigned int i = start;
