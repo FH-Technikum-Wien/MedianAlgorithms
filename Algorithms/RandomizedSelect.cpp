@@ -9,9 +9,9 @@ int RandomizedSelect::sort(std::vector<int>& values, unsigned int start, unsigne
 
 int RandomizedSelect::randomizedSelect(std::vector<int>& values, unsigned int start, unsigned int end, unsigned int nSmallest)
 {
-	// Reached wanted nth-smallest number.
+	// Reached wanted nth-smallest number. +1 because this algorithm starts at 1 and not 0.
 	if (start == end)
-		return values[start];
+		return values[start + 1];
 
 	// Gets random pivot position.
 	unsigned int rPivot = randomizedPartition(values, start, end);
@@ -19,7 +19,7 @@ int RandomizedSelect::randomizedSelect(std::vector<int>& values, unsigned int st
 	unsigned int elementCount = rPivot - start + 1;
 	// Does pivot equal nth-smallest number?
 	if (nSmallest == elementCount)
-		return values[rPivot];
+		return values[rPivot + 1];
 
 	if (nSmallest < elementCount)
 		return sort(values, start, rPivot - 1, nSmallest);
@@ -43,11 +43,13 @@ int RandomizedSelect::randomizedPartition(std::vector<int>& values, unsigned int
 	{
 		// Current values smaller/equal to pivot -> Swap.
 		if (values[j] <= pivotValue) {
-			std::swap(values[i], values[j]);
+			if (i != j)
+				std::swap(values[i], values[j]);
 			i++;
 		}
 	}
 	// Set pivot to correct spot.
-	std::swap(values[i], values[end]);
+	if (i != end)
+		std::swap(values[i], values[end]);
 	return i;
 }
