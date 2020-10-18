@@ -3,25 +3,33 @@
 
 int MedianOfMedians::sort(std::vector<int>& values, unsigned int size, unsigned int nthSmallest)
 {
-	if (size < 6) {
-		std::sort(values.begin(), values.end());
-		return values[nthSmallest];
-	}
+	if (size == 1 && nthSmallest == 0)
+		return values[0];
 
 	std::vector<int> medians;
 	for (unsigned i = 0; i < size / 5; i++)
 	{
-		// Sort in groups of five.
-		std::sort(values.begin() + (i * 5), values.begin() + (i * 5) + 4);
+		// Do quicksort for the first 2 indexes.
+		for (unsigned int j = 0; j < 3; j++)
+		{
+			// Find smallest. Everything before j + 1 is sorted.
+			unsigned int smallest = j;
+			for (unsigned k = j + 1; k < 5; k++)
+			{
+				if (values[i * 5 + k] < values[i * 5 + smallest])
+					smallest = k;
+			}
+			// Swap smallest with current position.
+			std::swap(values[i * 5 + j], values[i * 5 + smallest]);
+		}
 		// Median is at index 2 of a sorted group of 5 elements.
 		medians.push_back(values[(i * 5) + 2]);
 	}
 
+	// If not a factor of 5, take first element.
 	unsigned int remain = size % 5;
 	if (remain != 0) {
-		std::sort(values.begin() + (size / 5), values.end());
-		// Add median of remain.
-		medians.push_back(values[(size - remain) / 2]);
+		medians.push_back(values[(size - remain)]);
 	}
 
 	int pivotValue = sort(medians, medians.size(), medians.size() / 2);
