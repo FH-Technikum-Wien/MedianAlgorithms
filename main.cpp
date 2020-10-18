@@ -1,6 +1,8 @@
 #include <iostream>
 #include <algorithm>
 #include <time.h> 
+#include <ctime>
+#include <fstream>
 #include "Algorithms/Quicksort.h"
 #include "Algorithms/RandomizedSelect.h"
 #include "Algorithms/MedianOfMedians.h"
@@ -17,11 +19,11 @@ void printArray(int values[], int arraySize) {
 int main()
 {
 	// Settings
-	const unsigned int numberOfRandoms = 5001;
+	const unsigned int numberOfRandoms = 100001;
 	const unsigned int randomIterations = 20;
-	const unsigned int sameIterations = 10;
-	const unsigned int processSteps = 20;
-	unsigned int totalIterations = randomIterations * sameIterations;
+	const unsigned int identicalIterations = 2;
+	const unsigned int processSteps = 5;
+	unsigned int totalIterations = randomIterations * identicalIterations;
 
 
 	// Times
@@ -33,10 +35,29 @@ int main()
 
 
 	// Process prints
-	std::cout << "Using " << randomIterations << " random iterations and " << sameIterations << "same iterations:"<< std::endl;
+	std::cout << "Using " << randomIterations << " random iterations with " << identicalIterations << " identical iterations and " << numberOfRandoms << " elements:" << std::endl;
 	for (unsigned int i = 0; i < processSteps; i++)
 		std::cout << "_";
 	std::cout << std::endl;
+
+	// Log
+	std::ofstream logFile;
+	logFile.open("data.log", std::ios::out | std::ios::app);
+
+	// Timestamp
+	struct tm newtime;
+	__time32_t aclock;
+	char buffer[32];
+	// Get time in seconds.
+	_time32(&aclock);  
+	// Convert time to struct tm form.
+	_localtime32_s(&newtime, &aclock);   
+	asctime_s(buffer, 32, &newtime);
+	logFile << buffer << "\n";
+
+	logFile << "Number of elements:\t\t" << numberOfRandoms << "\n";
+	logFile << "Number of random iterations:\t" << randomIterations << "\n";
+	logFile << "Number of identical iterations:\t" << identicalIterations << "\n\n";
 
 	// Repeats with different data sets.
 	for (unsigned int i = 0; i < randomIterations; i++)
@@ -46,10 +67,10 @@ int main()
 		// Data
 		std::vector<int>* values = new std::vector<int>();
 		for (unsigned int i = 0; i < numberOfRandoms; i++)
-			values->push_back(std::rand());
+			values->push_back(std::rand() + 1);
 
 		// Repeats with same data set.
-		for (unsigned int j = 0; j < sameIterations; j++)
+		for (unsigned int j = 0; j < identicalIterations; j++)
 		{
 			std::vector<int>* quickSortValues = new std::vector<int>(*values);
 			std::vector<int>* stdSortValues = new std::vector<int>(*values);
@@ -79,7 +100,7 @@ int main()
 
 			// MedianOfMedians
 			start = std::chrono::high_resolution_clock::now();
-			median = MedianOfMedians::sort(*medianMedianValues, numberOfRandoms, (numberOfRandoms) / 2);
+			median = MedianOfMedians::find_kth(medianMedianValues->data(), numberOfRandoms, (numberOfRandoms) / 2);
 			stop = std::chrono::high_resolution_clock::now();
 			medianMedianTime += std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
@@ -96,7 +117,7 @@ int main()
 			delete(medianMedianValues);
 			delete(nthElementValues);
 
-			if ((i * sameIterations + j) % (totalIterations / processSteps) == 0)
+			if ((i * identicalIterations + j) % (totalIterations / processSteps) == 0)
 				std::cout << "#";
 		}
 
@@ -104,10 +125,13 @@ int main()
 	}
 	std::cout << std::endl;
 
-	std::cout << "Quicksort time:\t\t" << quickSortTime.count() / totalIterations << std::endl;
-	std::cout << "std::sort time:\t\t" << stdSortTime.count() / totalIterations << std::endl;
-	std::cout << "RandomizedSelect time:\t" << randomSelectTime.count() / totalIterations << std::endl;
-	std::cout << "MedianOfMedians time:\t" << medianMedianTime.count() / totalIterations << std::endl;
-	std::cout << "nth_element time:\t" << nthElementTime.count() / totalIterations << std::endl;
-	std::cout << "\t\t\tMicroseconds" << std::endl;
+	logFile << "Quicksort time:\t\t" << quickSortTime.count() / totalIterations << std::endl;
+	logFile << "std::sort time:\t\t" << stdSortTime.count() / totalIterations << std::endl;
+	logFile << "RandomizedSelect time:\t" << randomSelectTime.count() / totalIterations << std::endl;
+	logFile << "MedianOfMedians time:\t" << medianMedianTime.count() / totalIterations << std::endl;
+	logFile << "nth_element time:\t" << nthElementTime.count() / totalIterations << std::endl;
+	logFile << "\t\t\tMicroseconds" << std::endl;
+	logFile << std::endl;
+
+	logFile.close();
 }

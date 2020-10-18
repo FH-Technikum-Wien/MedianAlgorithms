@@ -11,8 +11,7 @@ class MedianOfMedians
 {
 public:
 	static int sort(std::vector<int>& values, unsigned int size, unsigned int nthSmallest);
-
-private:
+	static int find_kth(int* v, int n, int k);
 
 };
 
