@@ -5,6 +5,9 @@ void Quicksort::sort(std::vector<int>& values, unsigned int start, unsigned int 
 	unsigned int pivot;
 	if (start < end) {
 		pivot = partition(values, start, end);
+		// Prevents negative pivot.
+		if (pivot == 0)
+			return;
 		// Sort left side.
 		sort(values, start, pivot - 1);
 		// Sort right side.
